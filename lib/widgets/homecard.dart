@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upyogaarth/utility_screens/compass.dart';
 import 'package:upyogaarth/utility_screens/flashlight.dart';
 
 class HomeCard extends StatefulWidget {
@@ -30,6 +31,11 @@ class _HomeCardState extends State<HomeCard> {
       case "Flashlight":
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const FlashlightScreen()));
+        break;
+      case "Compass":
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const CompassScreen()));
+        break;
     }
   }
 }

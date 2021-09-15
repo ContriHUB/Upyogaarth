@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData.dark(),
       home: const HomePage(title: 'Upyogaarth'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
