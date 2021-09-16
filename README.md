@@ -2,6 +2,10 @@
 
 A utility application
 
+## Note
+
+Before using the app insert OpenWeatherMap API Key in .env file. (This is needed for the weather function and does not affect functioning of other utilities.)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
