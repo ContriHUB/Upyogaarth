@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:upyogaarth/utility_screens/compass.dart';
 import 'package:upyogaarth/utility_screens/flashlight.dart';
+import 'package:upyogaarth/utility_screens/weather.dart';
 
 class HomeCard extends StatefulWidget {
   const HomeCard({Key? key, required this.title}) : super(key: key);
@@ -35,6 +36,10 @@ class _HomeCardState extends State<HomeCard> {
       case "Compass":
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CompassScreen()));
+        break;
+      case "Weather":
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const WeatherScreen()));
         break;
     }
   }
