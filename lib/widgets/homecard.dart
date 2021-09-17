@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:upyogaarth/utility_screens/compass.dart';
 import 'package:upyogaarth/utility_screens/flashlight.dart';
 import 'package:upyogaarth/utility_screens/weather.dart';
-import 'package:upyogaarth/utility_screens/mod_calculator.dart';
+import 'package:upyogaarth/utility_screens/mod_calculator/mod_calculator.dart';
 
 class HomeCard extends StatefulWidget {
   const HomeCard({Key? key, required this.title}) : super(key: key);

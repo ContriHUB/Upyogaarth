@@ -18,12 +18,12 @@ class _GcdAbState extends State<GcdAb> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'a'),
               keyboardType: TextInputType.number,
             ),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'b'),
               keyboardType: TextInputType.number,

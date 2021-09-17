@@ -18,12 +18,12 @@ class _XModNState extends State<XModN> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'X: base'),
               keyboardType: TextInputType.number,
             ),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'n: Modulus'),
               keyboardType: TextInputType.number,

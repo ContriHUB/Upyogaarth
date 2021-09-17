@@ -18,7 +18,7 @@ class _FactorizeState extends State<Factorize> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'My Number'),
               keyboardType: TextInputType.number,

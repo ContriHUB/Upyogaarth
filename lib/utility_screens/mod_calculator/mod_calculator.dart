@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:upyogaarth/utility_screens/ab_mod_n.dart';
-import 'package:upyogaarth/utility_screens/factorize.dart';
-import 'package:upyogaarth/utility_screens/gcd_ab.dart';
-import 'package:upyogaarth/utility_screens/x_mod_n.dart';
+import 'package:upyogaarth/utility_screens/mod_calculator/ab_mod_n.dart';
+import 'package:upyogaarth/utility_screens/mod_calculator/factorize.dart';
+import 'package:upyogaarth/utility_screens/mod_calculator/gcd_ab.dart';
+import 'package:upyogaarth/utility_screens/mod_calculator/x_mod_n.dart';
 
 class ModCalculator extends StatefulWidget {
   const ModCalculator({Key? key}) : super(key: key);

@@ -20,17 +20,17 @@ class _AbModNState extends State<AbModN> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'a: Base'),
               keyboardType: TextInputType.number,
             ),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'b: Power'),
               keyboardType: TextInputType.number,
             ),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                   hintText: 'n: Mod'),
               keyboardType: TextInputType.number,
