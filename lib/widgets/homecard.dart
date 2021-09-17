@@ -3,6 +3,7 @@ import 'package:upyogaarth/utility_screens/compass.dart';
 import 'package:upyogaarth/utility_screens/flashlight.dart';
 import 'package:upyogaarth/utility_screens/mod_calculator/mod_calculator.dart';
 import 'package:upyogaarth/utility_screens/weather.dart';
+import 'package:upyogaarth/utility_screens/youtube_downloader.dart';
 
 class HomeCard extends StatefulWidget {
   const HomeCard({Key? key, required this.title}) : super(key: key);
@@ -45,6 +46,11 @@ class _HomeCardState extends State<HomeCard> {
       case "MOD Calculator":
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const ModCalculator()));
+        break;
+      case "YouTube Downloader":
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const YoutubeDownloaderScreen()));
+        break;
     }
   }
 }

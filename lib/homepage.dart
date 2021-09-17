@@ -31,7 +31,10 @@ class _HomePageState extends State<HomePage> {
             Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
               HomeCard(title: "Weather"),
               HomeCard(title: "MOD Calculator")
-            ])
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+              HomeCard(title: "YouTube Downloader")
+            ]),
           ],
         ));
   }
