@@ -21,18 +21,15 @@ class _AbModNState extends State<AbModN> {
         child: Column(
           children: <Widget>[
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'a: Base'),
+              decoration: InputDecoration(hintText: 'a: Base'),
               keyboardType: TextInputType.number,
             ),
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'b: Power'),
+              decoration: InputDecoration(hintText: 'b: Power'),
               keyboardType: TextInputType.number,
             ),
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'n: Mod'),
+              decoration: InputDecoration(hintText: 'n: Mod'),
               keyboardType: TextInputType.number,
             ),
             Row(
@@ -48,12 +45,9 @@ class _AbModNState extends State<AbModN> {
                     }),
               ],
             ),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('COMPUTE POWER')),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('CLEAR')),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('COMPUTE POWER')),
+            ElevatedButton(onPressed: () {}, child: const Text('CLEAR')),
           ],
         ),
       ),

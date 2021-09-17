@@ -19,24 +19,18 @@ class _GcdAbState extends State<GcdAb> {
         child: Column(
           children: <Widget>[
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'a'),
+              decoration: InputDecoration(hintText: 'a'),
               keyboardType: TextInputType.number,
             ),
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'b'),
+              decoration: InputDecoration(hintText: 'b'),
               keyboardType: TextInputType.number,
             ),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('CALCULATE GCD')),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('BEZOUT IDENTITY')),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('CLEAR')),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('CALCULATE GCD')),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('BEZOUT IDENTITY')),
+            ElevatedButton(onPressed: () {}, child: const Text('CLEAR')),
           ],
         ),
       ),

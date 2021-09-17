@@ -19,16 +19,11 @@ class _FactorizeState extends State<Factorize> {
         child: Column(
           children: <Widget>[
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'My Number'),
+              decoration: InputDecoration(hintText: 'My Number'),
               keyboardType: TextInputType.number,
             ),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('FIND FACTORS')),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('CLEAR')),
+            ElevatedButton(onPressed: () {}, child: const Text('FIND FACTORS')),
+            ElevatedButton(onPressed: () {}, child: const Text('CLEAR')),
           ],
         ),
       ),

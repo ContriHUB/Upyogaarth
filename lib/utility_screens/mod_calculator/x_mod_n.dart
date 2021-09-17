@@ -19,21 +19,16 @@ class _XModNState extends State<XModN> {
         child: Column(
           children: <Widget>[
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'X: base'),
+              decoration: InputDecoration(hintText: 'X: base'),
               keyboardType: TextInputType.number,
             ),
             const TextField(
-              decoration: InputDecoration(
-                  hintText: 'n: Modulus'),
+              decoration: InputDecoration(hintText: 'n: Modulus'),
               keyboardType: TextInputType.number,
             ),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('CALCULATE INVERSE')),
-            ElevatedButton(onPressed: () {
-
-            }, child: const Text('CLEAR')),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('CALCULATE INVERSE')),
+            ElevatedButton(onPressed: () {}, child: const Text('CLEAR')),
           ],
         ),
       ),
