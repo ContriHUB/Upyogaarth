@@ -20,3 +20,7 @@ A utility application made using Flutter SDK.
 
 
 For getting help started with Flutter, view [online documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on mobile development, and a full API reference.
+
+## Contributors
+
+A list of contributors can be found in [Contributors.md](./Contributors.md).
