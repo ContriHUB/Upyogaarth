@@ -1,21 +1,22 @@
-# upyogaarth
+# Upyogaarth
 
-A utility application
+A utility application made using Flutter SDK.
 
-## Note
+**Disclaimer:** This project was made under 2 hours for the purposes of [ContriHUB](https://contrihub.github.io/), and is currently under maintenance in the event itself.
 
-Before using the app insert OpenWeatherMap API Key in .env file. (This is needed for the weather
-function and does not affect functioning of other utilities.)
+## Features
 
-## Getting Started
+1. Flashlight
+2. Compass
+3. Weather
+4. MOD Calculator
+5. YouTube Downloader
 
-This project is a starting point for a Flutter application.
+## To try your hands on the project
 
-A few resources to get you started if this is your first Flutter project:
+1. Clone the repository
+2. insert OpenWeatherMap API Key in .env file. (This is needed for the weather function and does not affect functioning of other utilities)
+3. Build the app, deploy to your device and you are good to go.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on
-mobile development, and a full API reference.
+For getting help started with Flutter, view [online documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on mobile development, and a full API reference.
