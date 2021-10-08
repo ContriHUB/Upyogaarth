@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'dart:core';
 
 class Factorize extends StatefulWidget {
   const Factorize({Key? key}) : super(key: key);
@@ -8,6 +10,17 @@ class Factorize extends StatefulWidget {
 }
 
 class _FactorizeState extends State<Factorize> {
+  // Getting the number from the text input
+  final numberController = TextEditingController();
+  final List<int> factors = [];
+  String factorText = "";
+
+  @override
+  void dispose() {
+    numberController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,12 +31,60 @@ class _FactorizeState extends State<Factorize> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            const TextField(
-              decoration: InputDecoration(hintText: 'My Number'),
+            TextField(
+              decoration: const InputDecoration(hintText: 'My Number'),
               keyboardType: TextInputType.number,
+              controller: numberController,
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('FIND FACTORS')),
-            ElevatedButton(onPressed: () {}, child: const Text('CLEAR')),
+            ElevatedButton(
+                onPressed: () {
+                  factorText = "";
+                  factors.clear();
+
+                  var number = int.parse(numberController.text);
+                  var l = sqrt(number);
+
+                  // Algorithm for finding the factor of number
+                  for (var i = 1; i <= l; i++) {
+                    if (number % i == 0) {
+                      if (number / i == i) {
+                        factors.add(i);
+                      } else {
+                        var f = number ~/ i;
+                        factors.add(i);
+                        factors.add(f);
+                      }
+                    }
+                  }
+                  // Sorting an array of factors
+                  factors.sort();
+                  // Converting array into string, so that it can be display in the application
+                  for (var i in factors) {
+                    factorText = factorText + i.toString() + ' , ';
+                  }
+                  setState(() {
+                    factorText;
+                  });
+                },
+                child: const Text('FIND FACTORS')),
+            ElevatedButton(
+                onPressed: () {
+                  numberController.clear();
+                  setState(() {
+                    factorText = '';
+                  });
+                },
+                child: const Text('CLEAR')),
+            if (factorText != '') ...[
+              const Text(
+                "Factors are:",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                factorText,
+                style: const TextStyle(fontSize: 20),
+              ),
+            ]
           ],
         ),
       ),
