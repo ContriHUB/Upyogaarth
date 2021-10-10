@@ -8,6 +8,30 @@ class XModN extends StatefulWidget {
 }
 
 class _XModNState extends State<XModN> {
+  final xCont = TextEditingController();
+  final nCont = TextEditingController();
+  double? ans;
+  calc() {
+    double a = double.parse(xCont.text);
+    double b = double.parse(nCont.text);
+    double sol = ((1 / a) % b).toDouble();
+    setState(() {
+      ans = sol;
+    });
+  }
+
+  List<Widget> soln() {
+    List<Widget> list = [];
+    if (ans != null) {
+      list.add(const Divider());
+      list.add(Text(
+        '${xCont.text} mod ${nCont.text} = $ans',
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+      ));
+    }
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,17 +42,28 @@ class _XModNState extends State<XModN> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            const TextField(
+            TextField(
               decoration: InputDecoration(hintText: 'X: base'),
               keyboardType: TextInputType.number,
+              controller: xCont,
             ),
-            const TextField(
+            TextField(
               decoration: InputDecoration(hintText: 'n: Modulus'),
               keyboardType: TextInputType.number,
+              controller: nCont,
             ),
             ElevatedButton(
-                onPressed: () {}, child: const Text('CALCULATE INVERSE')),
-            ElevatedButton(onPressed: () {}, child: const Text('CLEAR')),
+                onPressed: calc, child: const Text('CALCULATE INVERSE')),
+            ElevatedButton(
+                onPressed: () {
+                  nCont.clear();
+                  xCont.clear();
+                  setState(() {
+                    ans = null;
+                  });
+                },
+                child: const Text('CLEAR')),
+            ...soln(),
           ],
         ),
       ),
