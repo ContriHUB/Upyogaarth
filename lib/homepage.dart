@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:upyogaarth/widgets/homecard.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,7 +36,13 @@ class _HomePageState extends State<HomePage> {
             Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
               HomeCard(title: "YouTube Downloader")
             ]),
+            const SizedBox(height: 50),
+            Lottie.network(
+              'https://assets1.lottiefiles.com/packages/lf20_dyXaL5.json',
+              height: 100,
+            ),
           ],
         ));
   }
 }
+
