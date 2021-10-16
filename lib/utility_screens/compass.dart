@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,13 +15,13 @@ class CompassScreen extends StatefulWidget {
 
 class _CompassScreenState extends State<CompassScreen> {
   bool _hasPermissions = false;
-  CompassEvent? _lastRead;
+  CompassEvent? _lastRead ;
   DateTime? _lastReadAt;
 
   @override
   void initState() {
     super.initState();
-
+     
     _fetchPermissionStatus();
   }
 
@@ -46,7 +46,7 @@ class _CompassScreenState extends State<CompassScreen> {
     );
   }
 
-  Widget _buildManualReader() {
+  Widget _buildManualReader() {  
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
@@ -61,24 +61,72 @@ class _CompassScreenState extends State<CompassScreen> {
               });
             },
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '$_lastRead',
-                    style: Theme.of(context).textTheme.caption,
+          Container(
+            child: Column(
+       mainAxisSize: MainAxisSize.max,
+       children:<Widget>[
+          Card(
+            
+           margin: const EdgeInsets.all(20.0),
+           color: Colors.white,
+           child: 
+            Container(
+             decoration: BoxDecoration(
+              color: const Color.fromRGBO(255, 255, 255, 100),
+                border: Border.all(color: Colors.amber,width: 5.0),
+                boxShadow:const [
+                    BoxShadow(
+                    color: Colors.blue,
+                    offset: Offset(5.0,5.0),
+                  )]
+             ),
+             padding: const EdgeInsets.all(5.0),
+             child:  Column(
+                     children: [
+                       if(_lastRead==null) ...[
+                       Text(
+                  'Last Read: $_lastRead',
+                    style: const TextStyle(fontSize: 12.0),
+                    textAlign: TextAlign.start,
+                  )]
+                  else ...[
+                    Text(
+                    headtoString(_lastRead!) + '°',
+                    style: TextStyle(fontSize: 12.0),
+                    textAlign: TextAlign.start,
                   ),
-                  Text(
-                    '$_lastReadAt',
-                    style: Theme.of(context).textTheme.caption,
+                  const SizedBox(height: 5),
+                   Text(
+                  headCamtoString(_lastRead!) + '°',
+                    style: TextStyle(fontSize: 12.0),
+                    textAlign: TextAlign.start,
                   ),
-                ],
-              ),
-            ),
+                  const SizedBox(height: 5),
+                   Text(
+                    acctoString(_lastRead!) + '°',
+                    style: TextStyle(fontSize: 12.0),
+                    textAlign: TextAlign.start,
+                  ),
+                  ],
+                  const SizedBox(height: 5),
+                  if(_lastReadAt==null) ...[Text(
+                    'Last Read At: $_lastReadAt',
+                    style: TextStyle(fontSize: 12.0),
+                    textAlign: TextAlign.start,
+                  ),]
+                  else ...[Text(
+                    DateFormat.yMd().format(_lastReadAt!) + '\n' + DateFormat.jms().format(_lastReadAt!),
+                    style: TextStyle(fontSize: 12.0),
+                    textAlign: TextAlign.start,
+                  )
+                  ]
+                     ],
+                   ),),
+             )
+       ]
+         ),
           ),
+       
         ],
       ),
     );
@@ -162,5 +210,17 @@ class _CompassScreenState extends State<CompassScreen> {
         setState(() => _hasPermissions = status == PermissionStatus.granted);
       }
     });
+  }
+
+   String headtoString(CompassEvent e){
+    int initialDeg = e.heading?.toInt() ?? 0;
+    int deg = initialDeg >= 0 ? initialDeg : 360 + initialDeg ;  
+    return deg.toString() ;
+  }
+  String headCamtoString(CompassEvent e){
+    return 'CameraMode:' + e.headingForCameraMode.toString();
+  }
+  String acctoString(CompassEvent e){
+    return 'Accuracy:' + e.accuracy.toString();
   }
 }
