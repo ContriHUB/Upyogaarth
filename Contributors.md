@@ -9,5 +9,6 @@
 7. [Aksah Kandasamy](https://github.com/akash-kd)
 8. [Kajal Shahi](https://contrihub21.herokuapp.com/profile/user/shahikaju7/)
 9. [Shradhey Pathak](https://github.com/Shradhey1008)
-10. [Pranavi](https://github.com/pranavi79) 
+10. [Pranavi](https://github.com/pranavi79)
 11. [Swati Jindal](https://github.com/Swatijindal08)
+12. [Yashika Jain](https://github.com/Yashikaj14)
