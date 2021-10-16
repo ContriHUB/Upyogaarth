@@ -58,6 +58,7 @@ class _AbModNState extends State<AbModN> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('A\u1d2e MOD N'),
       ),
@@ -65,21 +66,73 @@ class _AbModNState extends State<AbModN> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            TextField(
-              decoration: const InputDecoration(hintText: 'a: Base'),
-              keyboardType: TextInputType.number,
-              controller: aCont,
+            const SizedBox(height: 30.0,width:double.infinity),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: TextField(
+                decoration: const InputDecoration(hintText: 'a: Base',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                  width: 2.5,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(23, 195, 178, 100),
+                  width: 2.5,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                ),
+                keyboardType: TextInputType.number,
+                controller: aCont,
+              ),
             ),
-            TextField(
-              decoration: const InputDecoration(hintText: 'b: Power'),
-              keyboardType: TextInputType.number,
-              controller: bCont,
+            const SizedBox(height: 16.0,width:double.infinity),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: TextField(
+                decoration: const InputDecoration(hintText: 'b: Power',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                  width: 2.5,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(23, 195, 178, 100),
+                  width: 2.5,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                ),
+                keyboardType: TextInputType.number,
+                controller: bCont,
+              ),
             ),
-            TextField(
-              decoration: const InputDecoration(hintText: 'n: Mod'),
-              keyboardType: TextInputType.number,
-              controller: nCont,
+            const SizedBox(height: 16.0,width:double.infinity),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: TextField(
+                decoration: const InputDecoration(hintText: 'n: Mod',
+                   enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                  width: 2.5,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(23, 195, 178, 100),
+                  width: 2.5,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                ),
+                keyboardType: TextInputType.number,
+                controller: nCont,
+              ),
             ),
+            const SizedBox(height: 10.0,width:double.infinity),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
