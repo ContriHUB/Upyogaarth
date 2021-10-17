@@ -70,6 +70,7 @@ class _GcdAbState extends State<GcdAb> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('GCD(a,b)'),
       ),
@@ -77,16 +78,51 @@ class _GcdAbState extends State<GcdAb> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            TextField(
-              decoration: const InputDecoration(hintText: 'a'),
-              keyboardType: TextInputType.number,
-              controller: contA,
+          const SizedBox(height: 30.0,width:double.infinity),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: TextField(
+                decoration: const InputDecoration(hintText: 'a',
+                 enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                    width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromRGBO(23, 195, 178, 100),
+                    width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                controller: contA,
+              ),
             ),
-            TextField(
-              decoration: const InputDecoration(hintText: 'b'),
-              keyboardType: TextInputType.number,
-              controller: contB,
+            const SizedBox(height: 16.0,width:double.infinity),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: TextField(
+                decoration: const InputDecoration(hintText: 'b',
+                 enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                    width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromRGBO(23, 195, 178, 100),
+                    width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                controller: contB,
+              ),
             ),
+            const SizedBox(height: 16.0,width:double.infinity),
             ElevatedButton(onPressed: calc, child: const Text('CALCULATE GCD')),
             ElevatedButton(
                 onPressed: () {}, child: const Text('BEZOUT IDENTITY')),

@@ -24,6 +24,7 @@ class _FactorizeState extends State<Factorize> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('FACTORIZE'),
       ),
@@ -31,11 +32,29 @@ class _FactorizeState extends State<Factorize> {
         margin: const EdgeInsets.all(5),
         child: Column(
           children: <Widget>[
-            TextField(
-              decoration: const InputDecoration(hintText: 'My Number'),
-              keyboardType: TextInputType.number,
-              controller: numberController,
+            const SizedBox(height: 30.0,width:double.infinity),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: TextField(
+                decoration: const InputDecoration(hintText: 'My Number',
+                 enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                    width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromRGBO(23, 195, 178, 100),
+                    width: 2.5,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                controller: numberController,
+              ),
             ),
+            const SizedBox(height: 16.0,width:double.infinity),
             ElevatedButton(
                 onPressed: () {
                   factorText = "";
