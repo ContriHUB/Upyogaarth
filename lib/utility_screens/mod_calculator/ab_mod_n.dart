@@ -72,7 +72,7 @@ class _AbModNState extends State<AbModN> {
               child: TextField(
                 decoration: const InputDecoration(hintText: 'a: Base',
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                  borderSide: BorderSide(color: Colors.grey,
                   width: 2.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -94,7 +94,7 @@ class _AbModNState extends State<AbModN> {
               child: TextField(
                 decoration: const InputDecoration(hintText: 'b: Power',
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                  borderSide: BorderSide(color: Colors.grey,
                   width: 2.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -116,7 +116,7 @@ class _AbModNState extends State<AbModN> {
               child: TextField(
                 decoration: const InputDecoration(hintText: 'n: Mod',
                    enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                  borderSide: BorderSide(color: Colors.grey,
                   width: 2.5,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(4)),

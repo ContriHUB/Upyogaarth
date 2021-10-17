@@ -38,7 +38,7 @@ class _FactorizeState extends State<Factorize> {
               child: TextField(
                 decoration: const InputDecoration(hintText: 'My Number',
                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color.fromRGBO(67, 37, 52, 100),
+                    borderSide: BorderSide(color: Colors.grey,
                     width: 2.5,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(4)),
