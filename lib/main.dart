@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.deepOrange
+      ),
       home: const HomePage(title: 'Upyogaarth'),
       debugShowCheckedModeBanner: false,
     );
