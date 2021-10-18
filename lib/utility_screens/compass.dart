@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +16,14 @@ class CompassScreen extends StatefulWidget {
 
 class _CompassScreenState extends State<CompassScreen> {
   bool _hasPermissions = false;
+  late Timer timer;
   CompassEvent? _lastRead ;
   DateTime? _lastReadAt;
 
   @override
   void initState() {
     super.initState();
-     
+     timer=Timer.periodic(Duration(seconds: 2),(Timer t) => compassValue());
     _fetchPermissionStatus();
   }
 
@@ -50,79 +52,75 @@ class _CompassScreenState extends State<CompassScreen> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
-        children: <Widget>[
-          ElevatedButton(
-            child: const Text('Read Value'),
-            onPressed: () async {
-              final CompassEvent tmp = await FlutterCompass.events!.first;
-              setState(() {
-                _lastRead = tmp;
-                _lastReadAt = DateTime.now();
-              });
-            },
-          ),
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[     
           Container(
             child: Column(
-       mainAxisSize: MainAxisSize.max,
+         mainAxisSize: MainAxisSize.min,
        children:<Widget>[
-          Card(
-            
-           margin: const EdgeInsets.all(20.0),
-           color: Colors.white,
-           child: 
-            Container(
-             decoration: BoxDecoration(
-              color: const Color.fromRGBO(255, 255, 255, 100),
-                border: Border.all(color: Colors.amber,width: 5.0),
-                boxShadow:const [
-                    BoxShadow(
-                    color: Colors.blue,
-                    offset: Offset(5.0,5.0),
-                  )]
-             ),
-             padding: const EdgeInsets.all(5.0),
-             child:  Column(
-                     children: [
-                       if(_lastRead==null) ...[
-                       Text(
-                  'Last Read: $_lastRead',
-                    style: const TextStyle(fontSize: 12.0),
-                    textAlign: TextAlign.start,
-                  )]
-                  else ...[
-                    Text(
-                    headtoString(_lastRead!) + '°',
-                    style: TextStyle(fontSize: 12.0),
-                    textAlign: TextAlign.start,
-                  ),
-                  const SizedBox(height: 5),
-                   Text(
-                  headCamtoString(_lastRead!) + '°',
-                    style: TextStyle(fontSize: 12.0),
-                    textAlign: TextAlign.start,
-                  ),
-                  const SizedBox(height: 5),
-                   Text(
-                    acctoString(_lastRead!) + '°',
-                    style: TextStyle(fontSize: 12.0),
-                    textAlign: TextAlign.start,
-                  ),
-                  ],
-                  const SizedBox(height: 5),
-                  if(_lastReadAt==null) ...[Text(
-                    'Last Read At: $_lastReadAt',
-                    style: TextStyle(fontSize: 12.0),
-                    textAlign: TextAlign.start,
-                  ),]
-                  else ...[Text(
-                    DateFormat.yMd().format(_lastReadAt!) + '\n' + DateFormat.jms().format(_lastReadAt!),
-                    style: TextStyle(fontSize: 12.0),
-                    textAlign: TextAlign.start,
-                  )
-                  ]
-                     ],
-                   ),),
-             )
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.70,
+            height: MediaQuery.of(context).size.height * 0.20,
+            child: Card(
+             margin: const EdgeInsets.all(20.0),
+             color: Colors.white,
+             child: 
+              Container(
+               decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 255, 255, 100),
+                  border: Border.all(color: Colors.amber,width: 5.0),
+                  boxShadow:const [
+                      BoxShadow(
+                      color: Colors.blue,
+                      offset: Offset(5.0,5.0),
+                    )]
+               ),
+               padding: const EdgeInsets.all(5.0),
+               child:  Column(
+                 mainAxisSize: MainAxisSize.min,
+                 mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         if(_lastRead==null) ...[
+                         Text(
+                    'Last Read: $_lastRead',
+                      style: const TextStyle(fontSize: 20.0),
+                      textAlign: TextAlign.start,
+                    )]
+                    else ...[
+                      Text(
+                      headtoString(_lastRead!) + '°',
+                      style: const TextStyle(fontSize: 20.0,fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.start,
+                    ),
+                    const SizedBox(height: 5),
+                     Text(
+                    headCamtoString(_lastRead!) + '°',
+                      style: TextStyle(fontSize: 12.0),
+                      textAlign: TextAlign.start,
+                    ),
+                    const SizedBox(height: 5),
+                     Text(
+                      acctoString(_lastRead!) + '°',
+                      style: TextStyle(fontSize: 12.0),
+                      textAlign: TextAlign.start,
+                    ),
+                    ],
+                    const SizedBox(height: 5),
+                    if(_lastReadAt==null) ...[Text(
+                      'Last Read At: $_lastReadAt',
+                      style: TextStyle(fontSize: 20.0),
+                      textAlign: TextAlign.start,
+                    ),]
+                    else ...[Text(
+                      DateFormat.yMd().format(_lastReadAt!) + '\n' + DateFormat.jms().format(_lastReadAt!),
+                      style: TextStyle(fontSize: 12.0),
+                      textAlign: TextAlign.start,
+                    )
+                    ]
+                       ],
+                     ),),
+               ),
+          )
        ]
          ),
           ),
@@ -218,9 +216,23 @@ class _CompassScreenState extends State<CompassScreen> {
     return deg.toString() ;
   }
   String headCamtoString(CompassEvent e){
-    return 'CameraMode:' + e.headingForCameraMode.toString();
+    return 'CameraMode: ' + e.headingForCameraMode.toString();
   }
   String acctoString(CompassEvent e){
-    return 'Accuracy:' + e.accuracy.toString();
+    return 'Accuracy: ' + e.accuracy.toString();
+  }
+  Future<void> compassValue() async {
+    
+              final CompassEvent tmp = await FlutterCompass.events!.first;
+              setState(() {
+                _lastRead = tmp;
+                _lastReadAt = DateTime.now();
+              });
+            
+  }
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }
