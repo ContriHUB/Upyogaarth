@@ -35,21 +35,24 @@ class _WeatherScreenState extends State<WeatherScreen> {
       ),
       body: apiKey == "nothing"
           ? const Center(child: Text("API key not provided"))
-          : Column(
-              children: <Widget>[
-                _coordinateInputs(),
-                _buttons(),
-                const Text(
-                  'Output:',
-                  style: TextStyle(fontSize: 20),
-                ),
-                const Divider(
-                  height: 20.0,
-                  thickness: 2.0,
-                ),
-                Expanded(child: _resultView())
-              ],
-            ),
+          : SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  _coordinateInputs(),
+                  _buttons(),
+                  const Text(
+                    'Output:',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const Divider(
+                    height: 20.0,
+                    thickness: 2.0,
+                  ),
+                  Flexible(child: _resultView())
+                ],
+              ),
+          ),
     );
   }
 
@@ -85,6 +88,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Widget contentFinishedDownload() {
     return Center(
       child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: _data.length,
         itemBuilder: (context, index) {
           return ListTile(
