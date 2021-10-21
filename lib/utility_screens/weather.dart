@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather/weather.dart';
+import 'package:location/location.dart';
 
 enum AppState { NOT_DOWNLOADED, DOWNLOADING, FINISHED_DOWNLOADING }
 
@@ -36,8 +37,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
       body: apiKey == "nothing"
           ? const Center(child: Text("API key not provided"))
           : SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _coordinateInputs(),
                   _buttons(),
@@ -52,7 +53,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   Flexible(child: _resultView())
                 ],
               ),
-          ),
+            ),
     );
   }
 
@@ -170,7 +171,32 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         hintText: 'Enter longitude'),
                     keyboardType: TextInputType.number,
                     onChanged: _saveLon,
-                    onSubmitted: _saveLon)))
+                    onSubmitted: _saveLon))),
+        ElevatedButton(
+            onPressed: () async {
+              Location location = Location();
+              bool _serviceEnabled = await location.serviceEnabled();
+              if (!_serviceEnabled) {
+                _serviceEnabled = await location.requestService();
+              }
+              if (_serviceEnabled) {
+                PermissionStatus _permissionGranted =
+                    await location.hasPermission();
+                //print(_permissionGranted);
+                if (_permissionGranted == PermissionStatus.denied) {
+                  _permissionGranted = await location.requestPermission();
+                }
+                //print(_permissionGranted);
+                if (_permissionGranted == PermissionStatus.granted) {
+                  LocationData _locationData = await location.getLocation();
+                  lat = _locationData.latitude;
+                  lon = _locationData.longitude;
+                  print(lat);
+                  print(lon);
+                }
+              }
+            },
+            child: const Text("Get current location"))
       ],
     );
   }
