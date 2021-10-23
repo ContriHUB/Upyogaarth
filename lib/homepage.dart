@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:upyogaarth/widgets/homecard.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,26 +17,38 @@ class _HomePageState extends State<HomePage> {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ),
-        body: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-              HomeCard(title: "Flashlight"),
-              HomeCard(title: "Compass")
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-              HomeCard(title: "Weather"),
-              HomeCard(title: "MOD Calculator")
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-              HomeCard(title: "YouTube Downloader")
-            ]),
-          ],
-        ));
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(12),
+        child: StaggeredGridView.countBuilder(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 12,
+            itemCount: cardList.length,
+            itemBuilder: (context, index) {
+              return cardList[index];
+            },
+            staggeredTileBuilder: (index) {
+              return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
+            }),
+      ),
+    );
   }
+
+  List<HomeCard> cardList = [
+    const HomeCard(
+        title: "Flashlight",
+        color: Colors.deepPurple,
+        icon: Icons.flashlight_on),
+    const HomeCard(title: "Compass", color: Colors.blue, icon: Icons.explore),
+    const HomeCard(title: "Weather", color: Colors.green, icon: Icons.wb_sunny),
+    const HomeCard(
+        title: "MOD Calculator", color: Colors.orange, icon: Icons.calculate),
+    const HomeCard(
+        title: "YouTube Downloader", color: Colors.red, icon: Icons.download),
+  ];
 }

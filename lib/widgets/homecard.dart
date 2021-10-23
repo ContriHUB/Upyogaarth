@@ -6,10 +6,16 @@ import 'package:upyogaarth/utility_screens/weather.dart';
 import 'package:upyogaarth/utility_screens/youtube_downloader.dart';
 
 class HomeCard extends StatefulWidget {
-  const HomeCard({Key? key, required this.title}) : super(key: key);
+  const HomeCard({
+    Key? key,
+    required this.title,
+    required this.color,
+    required this.icon,
+  }) : super(key: key);
 
   final String title;
-
+  final Color color;
+  final IconData icon;
   @override
   State<HomeCard> createState() => _HomeCardState();
 }
@@ -18,14 +24,19 @@ class _HomeCardState extends State<HomeCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 100,
-        width: MediaQuery.of(context).size.width / 2 - 10,
         child: Card(
+            color: widget.color,
             elevation: 4,
             child: InkWell(
                 onTap: openUtility,
                 child: Center(
-                  child: Text(widget.title),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(widget.icon),
+                      Text(widget.title),
+                    ],
+                  ),
                 ))));
   }
 
@@ -48,8 +59,10 @@ class _HomeCardState extends State<HomeCard> {
             MaterialPageRoute(builder: (context) => const ModCalculator()));
         break;
       case "YouTube Downloader":
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const YoutubeDownloaderScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const YoutubeDownloaderScreen()));
         break;
     }
   }
