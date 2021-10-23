@@ -35,9 +35,18 @@ class _CompassScreenState extends State<CompassScreen> {
       ),
       body: Builder(builder: (context) {
         if (_hasPermissions) {
+          if (MediaQuery.of(context).orientation == Orientation.landscape){
+                return Row(
+                          children: <Widget>[
+                            Expanded(child: _buildCompass()),
+                            _buildManualReader(0.3,0.5),
+                            
+                          ],
+                        );
+          }
           return Column(
             children: <Widget>[
-              _buildManualReader(),
+              _buildManualReader(0.7,0.2),
               Expanded(child: _buildCompass()),
             ],
           );
@@ -48,7 +57,7 @@ class _CompassScreenState extends State<CompassScreen> {
     );
   }
 
-  Widget _buildManualReader() {  
+  Widget _buildManualReader(double w,double h) {  
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
@@ -59,8 +68,8 @@ class _CompassScreenState extends State<CompassScreen> {
          mainAxisSize: MainAxisSize.min,
        children:<Widget>[
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.70,
-            height: MediaQuery.of(context).size.height * 0.20,
+            width: MediaQuery.of(context).size.width * w,
+            height: MediaQuery.of(context).size.height * h,
             child: Card(
              margin: const EdgeInsets.all(20.0),
              color: Colors.white,
