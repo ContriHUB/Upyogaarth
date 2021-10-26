@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:torch_light/torch_light.dart';
 
@@ -12,6 +10,8 @@ class FlashlightScreen extends StatefulWidget {
 
 class _FlashlightScreenState extends State<FlashlightScreen> {
   bool _flashOn = false;
+  String on = "Click on Button to switch on",
+      off = "Click on Button to switch off";
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +22,21 @@ class _FlashlightScreenState extends State<FlashlightScreen> {
       body: SizedBox(
         width: double.infinity,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              "Toggle the switch below to toggle Flashlight",
-              textAlign: TextAlign.center,
-            ),
-            Expanded(
-              child: Center(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
                 child: SizedBox(
                   height: 250,
                   width: 250,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                        primary: Colors.purple,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(300),
                         ),
-                        elevation: 50,
-                        shadowColor: (_flashOn) ? Colors.white :Colors.transparent
-                        ),
+                        elevation: 150,
+                        shadowColor: (_flashOn) ? Colors.white : Colors.grey),
                     onPressed: () {
                       if (_flashOn == false) {
                         _enableTorch(context);
@@ -54,16 +50,29 @@ class _FlashlightScreenState extends State<FlashlightScreen> {
                         });
                       }
                     },
-                    child: const Icon(
-                      Icons.flashlight_off,
-                      size: 150,
-                    ),
+                    child: _flashOn == true
+                        ? const Icon(
+                            Icons.flashlight_off,
+                            size: 150,
+                          )
+                        : const Icon(
+                            Icons.flashlight_on,
+                            size: 150,
+                          ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+              const SizedBox(
+                height: 30,
+              ),
+              Text(
+                _flashOn ? off : on,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ]),
       ),
     );
   }
