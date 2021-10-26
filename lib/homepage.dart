@@ -40,15 +40,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<HomeCard> cardList = [
-    const HomeCard(
-        title: "Flashlight",
-        color: Colors.deepPurple,
-        icon: Icons.flashlight_on),
-    const HomeCard(title: "Compass", color: Colors.blue, icon: Icons.explore),
-    const HomeCard(title: "Weather", color: Colors.green, icon: Icons.wb_sunny),
-    const HomeCard(
-        title: "MOD Calculator", color: Colors.orange, icon: Icons.calculate),
-    const HomeCard(
-        title: "YouTube Downloader", color: Colors.red, icon: Icons.download),
+    const HomeCard(title: "Flashlight", color: Colors.redAccent, icon: Icons.flashlight_on),
+    const HomeCard(title: "Compass", color: Colors.blueGrey, icon: Icons.explore),
+    const HomeCard(title: "Weather", color: Colors.lightGreen, icon: Icons.wb_sunny),
+    const HomeCard( title: "MOD Calculator", color: Colors.deepOrangeAccent, icon: Icons.calculate),
+    const HomeCard( title: "YouTube Downloader", color: Colors.deepPurple, icon: Icons.download),
   ];
 }

@@ -33,8 +33,8 @@ class _HomeCardState extends State<HomeCard> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(widget.icon),
-                      Text(widget.title),
+                      Icon(widget.icon, color: Colors.white,size: 30),
+                      Text(widget.title, style: const TextStyle(color: Colors.white)),
                     ],
                   ),
                 ))));
