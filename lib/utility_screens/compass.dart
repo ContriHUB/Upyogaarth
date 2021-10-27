@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:upyogaarth/main.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 
 class CompassScreenAnimation extends StatelessWidget {
   const CompassScreenAnimation({Key? key}) : super(key: key);
@@ -23,34 +22,33 @@ class CompassScreenAnimation extends StatelessWidget {
   }
 
   void showAlert(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) => AssetGiffyDialog(
-          onlyOkButton: true,
-          buttonOkColor: Colors.orange,
-          image: Image.asset(
-            'assets/calibrate.gif',
-            fit: BoxFit.fill,
+
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context,rootNavigator: true).pop();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const CompassScreen()));
+      },
+    );
+
+    showDialog(context: context,
+        builder: (BuildContext buildContext) =>
+          AlertDialog(
+            title: Text('Compass Calibration',textAlign: TextAlign.center,),
+          contentPadding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+          content: Container(
+          child: Image.asset(
+          'assets/calibrate.gif',
+          height: 300.0,
+          width: 300.0,
           ),
-          title: Text(
-            'Compass Calibration',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 22.0, fontWeight: FontWeight.w600),
           ),
-          entryAnimation: EntryAnimation.DEFAULT,
-          description: Text(
-            'For Better Accuracy of readings, repeat this process 2-3 times.',
-            textAlign: TextAlign.center,
-            style: TextStyle(),
-          ),
-          onOkButtonPressed: () {
-            Navigator.of(context,rootNavigator: true).pop();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CompassScreen()));
-          },
-        ));
+            actions: [okButton],
+    )
+    );
   }
+
 }
 
 
