@@ -92,13 +92,19 @@ class _YoutubeDownloaderScreenState extends State<YoutubeDownloaderScreen> {
               padding: const EdgeInsets.all(10),
               child: Text("Status: $_linkStatus"),
             ),
+            Padding(
+                padding: const EdgeInsets.all(10),
+                child: OutlinedButton(
+                  onPressed: downloadVideo,
+                  child: const Icon(Icons.download),
+                ))
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: downloadVideo,
-        child: const Icon(Icons.download_rounded),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: downloadVideo,
+      //   child: const Icon(Icons.download_rounded),
+      // ),
     );
   }
 }
