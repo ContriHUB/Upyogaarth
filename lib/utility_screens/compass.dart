@@ -4,6 +4,56 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:upyogaarth/main.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
+
+class CompassScreenAnimation extends StatelessWidget {
+  const CompassScreenAnimation({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () => showAlert(context));
+    return Scaffold(
+      appBar: AppBar(title: const Text("Compass"),
+      ),
+      body: const Center(
+        child: Text("demo text"),
+      ),
+    );
+  }
+
+  void showAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => AssetGiffyDialog(
+          onlyOkButton: true,
+          buttonOkColor: Colors.orange,
+          image: Image.asset(
+            'assets/calibrate.gif',
+            fit: BoxFit.fill,
+          ),
+          title: Text(
+            'Compass Calibration',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 22.0, fontWeight: FontWeight.w600),
+          ),
+          entryAnimation: EntryAnimation.DEFAULT,
+          description: Text(
+            'For Better Accuracy of readings, repeat this process 2-3 times.',
+            textAlign: TextAlign.center,
+            style: TextStyle(),
+          ),
+          onOkButtonPressed: () {
+            Navigator.of(context,rootNavigator: true).pop();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CompassScreen()));
+          },
+        ));
+  }
+}
+
+
 
 class CompassScreen extends StatefulWidget {
   const CompassScreen({
@@ -31,6 +81,8 @@ class _CompassScreenState extends State<CompassScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyApp())),),
         title: const Text('Compass'),
       ),
       body: Builder(builder: (context) {
@@ -40,7 +92,7 @@ class _CompassScreenState extends State<CompassScreen> {
                           children: <Widget>[
                             Expanded(child: _buildCompass()),
                             _buildManualReader(0.3,0.5),
-                            
+
                           ],
                         );
           }
@@ -53,7 +105,8 @@ class _CompassScreenState extends State<CompassScreen> {
         } else {
           return _buildPermissionSheet();
         }
-      }),
+      }
+      ),
     );
   }
 
@@ -244,4 +297,5 @@ class _CompassScreenState extends State<CompassScreen> {
     timer.cancel();
     super.dispose();
   }
+
 }
