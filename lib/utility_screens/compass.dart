@@ -4,6 +4,54 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:upyogaarth/main.dart';
+
+class CompassScreenAnimation extends StatelessWidget {
+  const CompassScreenAnimation({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () => showAlert(context));
+    return Scaffold(
+      appBar: AppBar(title: const Text("Compass"),
+      ),
+      body: const Center(
+        child: Text("demo text"),
+      ),
+    );
+  }
+
+  void showAlert(BuildContext context) {
+
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context,rootNavigator: true).pop();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const CompassScreen()));
+      },
+    );
+
+    showDialog(context: context,
+        builder: (BuildContext buildContext) =>
+          AlertDialog(
+            title: Text('Compass Calibration',textAlign: TextAlign.center,),
+          contentPadding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+          content: Container(
+          child: Image.asset(
+          'assets/calibrate.gif',
+          height: 300.0,
+          width: 300.0,
+          ),
+          ),
+            actions: [okButton],
+    )
+    );
+  }
+
+}
+
+
 
 class CompassScreen extends StatefulWidget {
   const CompassScreen({
@@ -31,6 +79,8 @@ class _CompassScreenState extends State<CompassScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyApp())),),
         title: const Text('Compass'),
       ),
       body: Builder(builder: (context) {
@@ -40,7 +90,7 @@ class _CompassScreenState extends State<CompassScreen> {
                           children: <Widget>[
                             Expanded(child: _buildCompass()),
                             _buildManualReader(0.3,0.5),
-                            
+
                           ],
                         );
           }
@@ -53,7 +103,8 @@ class _CompassScreenState extends State<CompassScreen> {
         } else {
           return _buildPermissionSheet();
         }
-      }),
+      }
+      ),
     );
   }
 
@@ -244,4 +295,5 @@ class _CompassScreenState extends State<CompassScreen> {
     timer.cancel();
     super.dispose();
   }
+
 }
