@@ -154,18 +154,62 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
 
   Widget forecastUI() {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: _data.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(_data[index].toString()),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const Divider();
-      },
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: 250,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        itemCount: _data.length,
+        itemBuilder: (context, index) {
+          // return ListTile(
+          //   title: Text(_data[index].toString()),
+          // );
+          return GestureDetector(
+            onTap: () => WeatherDialog().showDetails(_data[index], context),
+            child: Card(
+                child: Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              width: 160.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    date.format(_data[index].date!),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text(
+                    time.format(_data[index].date!),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
+                  Container(
+                    height: 15,
+                  ),
+                  SizedBox(
+                    height: 70,
+                    width: 70,
+                    child: WeatherDialog()
+                        .getWeatherImage(_data[index].weatherConditionCode!),
+                  ),
+                  Container(
+                    height: 15,
+                  ),
+                  Text(
+                    _data[index]
+                            .temperature!
+                            .celsius!
+                            .roundToDouble()
+                            .toString() +
+                        '°C',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                ],
+              ),
+            )),
+          );
+        },
+      ),
     );
   }
 
@@ -177,7 +221,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
             location,
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
           ),
-          _data.length == 1 ? weatherUI() : forecastUI(),
+          _data.length < 2 ? weatherUI() : forecastUI(),
         ],
       ),
     );
