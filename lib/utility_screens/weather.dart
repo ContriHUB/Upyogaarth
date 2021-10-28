@@ -76,7 +76,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
       forecasts = await ws.fiveDayForecastByLocation(lat!, lon!);
     }
     else{
-      searchByCity=false;
       forecasts = await ws.fiveDayForecastByCityName(city!);
     }
 
@@ -100,7 +99,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
       weather = await ws.currentWeatherByLocation(lat!, lon!);
     }
     else {
-      searchByCity=false;
       weather = await ws.currentWeatherByCityName(city!);
     }
 
@@ -165,16 +163,19 @@ class _WeatherScreenState extends State<WeatherScreen> {
           : contentNotDownloaded();
 
   void _saveLat(String input) {
+    searchByCity=false;
     lat = double.tryParse(input);
     print(lat);
   }
 
   void _saveLon(String input) {
+    searchByCity=false;
     lon = double.tryParse(input);
     print(lon);
   }
 
   void _saveCity(String input) {
+    print('In function saveCity');
     searchByCity = true;
     city = input;
     print(city);
@@ -210,6 +211,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               cityController.text='';
               latController.text='';
               longController.text='';
+              searchByCity=false;
 
               Location location = Location();
               bool _serviceEnabled = await location.serviceEnabled();
