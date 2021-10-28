@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:upyogaarth/utility_screens/compass.dart';
 import 'package:upyogaarth/utility_screens/flashlight.dart';
 import 'package:upyogaarth/utility_screens/mod_calculator/mod_calculator.dart';
-import 'package:upyogaarth/utility_screens/weather.dart';
+import 'package:upyogaarth/utility_screens/weather/weather.dart';
 import 'package:upyogaarth/utility_screens/youtube_downloader.dart';
 
 class HomeCard extends StatefulWidget {
@@ -33,8 +33,9 @@ class _HomeCardState extends State<HomeCard> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(widget.icon, color: Colors.white,size: 30),
-                      Text(widget.title, style: const TextStyle(color: Colors.white)),
+                      Icon(widget.icon, color: Colors.white, size: 30),
+                      Text(widget.title,
+                          style: const TextStyle(color: Colors.white)),
                     ],
                   ),
                 ))));
@@ -47,8 +48,10 @@ class _HomeCardState extends State<HomeCard> {
             MaterialPageRoute(builder: (context) => const FlashlightScreen()));
         break;
       case "Compass":
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const CompassScreenAnimation()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const CompassScreenAnimation()));
         break;
       case "Weather":
         Navigator.push(context,
