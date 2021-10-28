@@ -18,6 +18,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
   List<Weather> _data = [];
   AppState _state = AppState.NOT_DOWNLOADED;
   double? lat, lon;
+  String? city;
+  bool searchByCity=false;
+  final latController = TextEditingController();
+  final longController = TextEditingController();
+  final cityController = TextEditingController();
 
   @override
   void initState() {
@@ -40,6 +45,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+                  _cityInput(),
                   _coordinateInputs(),
                   _buttons(),
                   const Text(
@@ -64,7 +70,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
       _state = AppState.DOWNLOADING;
     });
 
-    List<Weather> forecasts = await ws.fiveDayForecastByLocation(lat!, lon!);
+    List<Weather> forecasts;
+
+    if(!searchByCity) {
+      forecasts = await ws.fiveDayForecastByLocation(lat!, lon!);
+    }
+    else{
+      searchByCity=false;
+      forecasts = await ws.fiveDayForecastByCityName(city!);
+    }
+
     setState(() {
       _data = forecasts;
       _state = AppState.FINISHED_DOWNLOADING;
@@ -79,11 +94,21 @@ class _WeatherScreenState extends State<WeatherScreen> {
       _state = AppState.DOWNLOADING;
     });
 
-    Weather weather = await ws.currentWeatherByLocation(lat!, lon!);
+    Weather weather;
+
+    if(!searchByCity){
+      weather = await ws.currentWeatherByLocation(lat!, lon!);
+    }
+    else {
+      searchByCity=false;
+      weather = await ws.currentWeatherByCityName(city!);
+    }
+
     setState(() {
       _data = [weather];
       _state = AppState.FINISHED_DOWNLOADING;
     });
+
   }
 
   Widget contentFinishedDownload() {
@@ -149,13 +174,20 @@ class _WeatherScreenState extends State<WeatherScreen> {
     print(lon);
   }
 
+  void _saveCity(String input) {
+    searchByCity = true;
+    city = input;
+    print(city);
+  }
+
   Widget _coordinateInputs() {
     return Row(
       children: <Widget>[
         Expanded(
           child: Container(
-              margin: const EdgeInsets.all(5),
+              margin: const EdgeInsets.fromLTRB(5, 10, 5, 5),
               child: TextField(
+                controller: latController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(), hintText: 'Enter latitude'),
                   keyboardType: TextInputType.number,
@@ -166,6 +198,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
             child: Container(
                 margin: const EdgeInsets.all(5),
                 child: TextField(
+                  controller: longController,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Enter longitude'),
@@ -174,6 +207,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     onSubmitted: _saveLon))),
         ElevatedButton(
             onPressed: () async {
+              cityController.text='';
+              latController.text='';
+              longController.text='';
+
               Location location = Location();
               bool _serviceEnabled = await location.serviceEnabled();
               if (!_serviceEnabled) {
@@ -218,4 +255,23 @@ class _WeatherScreenState extends State<WeatherScreen> {
       ],
     );
   }
+
+  Widget _cityInput() {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+              margin: const EdgeInsets.all(5),
+              child: TextField(
+                controller: cityController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(), hintText: 'Enter city name'),
+                  keyboardType: TextInputType.text,
+                  onChanged: _saveCity,
+                  onSubmitted: _saveCity)),
+        ),
+      ],
+    );
+  }
+
 }
