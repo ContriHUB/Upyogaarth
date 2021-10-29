@@ -51,7 +51,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 children: <Widget>[
                   _coordinateInputs(),
                   _buttons(),
-                  const Divider(
+                  Divider(
                     height: 20.0,
                     thickness: 2.0,
                   ),
@@ -292,7 +292,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 15, 10, 5),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? Colors.grey[900]
+            : Colors.grey[200],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         border: Border.all(color: Colors.black54),
         boxShadow: const [
@@ -313,7 +315,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     margin: const EdgeInsets.all(5),
                     child: TextField(
                         controller: cityController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter city name'),
                         keyboardType: TextInputType.text,
@@ -329,14 +331,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Divider(
+              Divider(
                 height: 8,
               ),
               Text(
                 'OR',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              const Divider(
+              Divider(
                 height: 8,
               ),
             ],
@@ -352,7 +354,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     margin: const EdgeInsets.all(5),
                     child: TextField(
                         controller: latController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter latitude'),
                         keyboardType: TextInputType.number,
@@ -369,7 +371,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       margin: const EdgeInsets.all(5),
                       child: TextField(
                           controller: longController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter longitude'),
                           keyboardType: TextInputType.number,
@@ -384,14 +386,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Divider(
+              Divider(
                 height: 8,
               ),
               Text(
                 'OR',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              const Divider(
+              Divider(
                 height: 8,
               ),
             ],

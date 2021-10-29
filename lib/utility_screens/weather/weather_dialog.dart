@@ -78,16 +78,18 @@ class WeatherDialog {
                     Text(
                       date.format(w.date!),
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.black87),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        //color: Colors.black87
+                      ),
                     ),
                     Text(
                       time.format(w.date!),
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.black87),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        //color: Colors.black87
+                      ),
                     ),
                   ],
                 ),
