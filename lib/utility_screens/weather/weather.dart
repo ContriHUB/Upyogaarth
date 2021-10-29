@@ -18,14 +18,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
   late String apiKey;
   late WeatherFactory ws;
   List<Weather> _data = [];
-  var location;
-  var temp;
-  var weatherType;
-  var weathercode;
   final DateFormat date = DateFormat('dd LLL');
   final DateFormat time = DateFormat('HH:mm');
   AppState _state = AppState.NOT_DOWNLOADED;
   double? lat, lon;
+  String? city;
+  bool searchByCity = false;
+  final latController = TextEditingController();
+  final longController = TextEditingController();
+  final cityController = TextEditingController();
 
   @override
   void initState() {
@@ -68,7 +69,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
       _state = AppState.DOWNLOADING;
     });
 
-    List<Weather> forecasts = await ws.fiveDayForecastByLocation(lat!, lon!);
+    List<Weather> forecasts;
+
+    if (!searchByCity) {
+      forecasts = await ws.fiveDayForecastByLocation(lat!, lon!);
+    } else {
+      forecasts = await ws.fiveDayForecastByCityName(city!);
+    }
+
     setState(() {
       _data = forecasts;
       _state = AppState.FINISHED_DOWNLOADING;
@@ -83,18 +91,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
       _state = AppState.DOWNLOADING;
     });
 
-    Weather weather = await ws.currentWeatherByLocation(lat!, lon!);
+    Weather weather;
+    if (!searchByCity) {
+      weather = await ws.currentWeatherByLocation(lat!, lon!);
+    } else {
+      weather = await ws.currentWeatherByCityName(city!);
+    }
 
     setState(() {
-      location = weather.areaName;
-      temp = weather.temperature!.celsius!.round();
-      weatherType = weather.weatherDescription;
-      weathercode = weather.weatherConditionCode!;
       _data = [weather];
       _state = AppState.FINISHED_DOWNLOADING;
-      print(location);
-      print(temp);
-      print(weatherType);
     });
   }
 
@@ -111,7 +117,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 Container(
                   margin: EdgeInsets.fromLTRB(100, 30, 100, 15),
                   child: FittedBox(
-                    child: WeatherDialog().getWeatherImage(weathercode),
+                    child: WeatherDialog()
+                        .getWeatherImage(_data[0].weatherConditionCode!),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -124,7 +131,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      temp.toString(),
+                      _data[0].temperature!.celsius!.round().toString(),
                       style: TextStyle(fontSize: 15),
                     ),
                     Text(
@@ -142,7 +149,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Text(
-                      weatherType,
+                      _data[0].weatherDescription!,
                       style: TextStyle(fontSize: 15),
                     ),
                   ],
@@ -218,7 +225,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       child: Column(
         children: [
           Text(
-            location,
+            _data[0].areaName!,
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
           ),
           _data.length < 2 ? weatherUI() : forecastUI(),
@@ -263,19 +270,25 @@ class _WeatherScreenState extends State<WeatherScreen> {
           : contentNotDownloaded();
 
   void _saveLat(String input) {
+    searchByCity = false;
     lat = double.tryParse(input);
     print(lat);
   }
 
   void _saveLon(String input) {
+    searchByCity = false;
     lon = double.tryParse(input);
     print(lon);
   }
 
-  Widget _coordinateInputs() {
-    var _latitude = new TextEditingController(text: '');
-    var _longitude = new TextEditingController(text: '');
+  void _saveCity(String input) {
+    print('In function saveCity');
+    searchByCity = true;
+    city = input;
+    print(city);
+  }
 
+  Widget _coordinateInputs() {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 15, 10, 5),
       decoration: BoxDecoration(
@@ -294,12 +307,51 @@ class _WeatherScreenState extends State<WeatherScreen> {
         children: [
           Row(
             children: <Widget>[
+              Text('City:        '),
+              Expanded(
+                child: Container(
+                    margin: const EdgeInsets.all(5),
+                    child: TextField(
+                        controller: cityController,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter city name'),
+                        keyboardType: TextInputType.text,
+                        onChanged: _saveCity,
+                        onSubmitted: _saveCity)),
+              ),
+            ],
+          ),
+          Container(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Divider(
+                height: 8,
+              ),
+              Text(
+                'OR',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const Divider(
+                height: 8,
+              ),
+            ],
+          ),
+          Container(
+            height: 20,
+          ),
+          Row(
+            children: <Widget>[
               Text('Latitude:    '),
               Expanded(
                 child: Container(
                     margin: const EdgeInsets.all(5),
                     child: TextField(
-                        controller: _latitude,
+                        controller: latController,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter latitude'),
@@ -316,7 +368,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   child: Container(
                       margin: const EdgeInsets.all(5),
                       child: TextField(
-                          controller: _longitude,
+                          controller: longController,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter longitude'),
@@ -349,6 +401,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
           ),
           ElevatedButton(
               onPressed: () async {
+                cityController.text = '';
+                latController.text = '';
+                longController.text = '';
+                searchByCity = false;
+
                 Location location = Location();
                 bool _serviceEnabled = await location.serviceEnabled();
                 if (!_serviceEnabled) {
@@ -368,8 +425,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     lon = _locationData.longitude;
                     print(lat);
                     print(lon);
-                    _latitude.text = lat.toString();
-                    _longitude.text = lon.toString();
+                    latController.text = lat.toString();
+                    longController.text = lon.toString();
                   }
                 }
               },
