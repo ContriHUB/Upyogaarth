@@ -70,6 +70,7 @@ flutter:
   assets:
     - assets/gold_compass.png
     - assets/calibrate.gif
+    - assets/weather/
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
