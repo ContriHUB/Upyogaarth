@@ -7,52 +7,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:upyogaarth/main.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
-class CompassScreenAnimation extends StatelessWidget {
-  const CompassScreenAnimation({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () => showAlert(context));
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Compass"),
-      ),
-      body: const Center(
-        child: Text("demo text"),
-      ),
-    );
-  }
-
-  void showAlert(BuildContext context) {
-    Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const CompassScreen()));
-      },
-    );
-
-    showDialog(
-        context: context,
-        builder: (BuildContext buildContext) => AlertDialog(
-              title: Text(
-                'Compass Calibration',
-                textAlign: TextAlign.center,
-              ),
-              contentPadding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
-              content: Container(
-                child: Image.asset(
-                  'assets/calibrate.gif',
-                  height: 300.0,
-                  width: 300.0,
-                ),
-              ),
-              actions: [okButton],
-            ));
-  }
-}
-
 class CompassScreen extends StatefulWidget {
   const CompassScreen({
     Key? key,
@@ -76,7 +30,7 @@ class _CompassScreenState extends State<CompassScreen> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(seconds: 2), (Timer t) => compassValue());
+    timer = Timer.periodic(const Duration(seconds: 2), (Timer t) => compassValue());
     _fetchPermissionStatus();
 
     _streamSubscriptions.add(
@@ -98,6 +52,7 @@ class _CompassScreenState extends State<CompassScreen> {
         },
       ),
     );
+    Future.delayed(Duration.zero, () => showAlert(context));
   }
 
   void updateCompassValues() {
@@ -210,32 +165,32 @@ class _CompassScreenState extends State<CompassScreen> {
                           const SizedBox(height: 5),
                           Text(
                             headCamtoString(_lastRead!) + '°',
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                             textAlign: TextAlign.start,
                           ),
                           const SizedBox(height: 5),
                           Text(
                             acctoString(_lastRead!) + '°',
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                             textAlign: TextAlign.start,
                           ),
                           //to be edited from here
                           const SizedBox(height: 5),
                           Text(
                             azitoString() + '°',
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                             textAlign: TextAlign.start,
                           ),
                           const SizedBox(height: 5),
                           Text(
                             pitchtoString() + '°',
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                             textAlign: TextAlign.start,
                           ),
                           const SizedBox(height: 5),
                           Text(
                             rolltoString() + '°',
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                             textAlign: TextAlign.start,
                           ),
                         ],
@@ -243,7 +198,7 @@ class _CompassScreenState extends State<CompassScreen> {
                         if (_lastReadAt == null) ...[
                           Text(
                             'Last Read At: $_lastReadAt',
-                            style: TextStyle(fontSize: 20.0),
+                            style: const TextStyle(fontSize: 20.0),
                             textAlign: TextAlign.start,
                           ),
                         ] else ...[
@@ -251,7 +206,7 @@ class _CompassScreenState extends State<CompassScreen> {
                             DateFormat.yMd().format(_lastReadAt!) +
                                 '\n' +
                                 DateFormat.jms().format(_lastReadAt!),
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                             textAlign: TextAlign.start,
                           )
                         ]
@@ -385,5 +340,30 @@ class _CompassScreenState extends State<CompassScreen> {
   void dispose() {
     timer.cancel();
     super.dispose();
+  }
+
+  void showAlert(BuildContext context) {
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext buildContext) => AlertDialog(
+          title: const Text(
+            'Compass Calibration',
+            textAlign: TextAlign.center,
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+          content: Image.asset(
+            'assets/calibrate.gif',
+            height: 300.0,
+            width: 300.0,
+          ),
+          actions: [okButton],
+        ));
   }
 }

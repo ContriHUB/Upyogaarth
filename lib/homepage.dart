@@ -22,28 +22,37 @@ class _HomePageState extends State<HomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(12),
-        child: StaggeredGridView.countBuilder(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 12,
-            itemCount: cardList.length,
-            itemBuilder: (context, index) {
-              return cardList[index];
-            },
-            staggeredTileBuilder: (index) {
-              return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
-            }),
-      ),
+      body: StaggeredGridView.countBuilder(
+          padding: const EdgeInsets.all(12),
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 12,
+          itemCount: cardList.length,
+          itemBuilder: (context, index) {
+            return cardList[index];
+          },
+          staggeredTileBuilder: (index) {
+            return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
+          }),
     );
   }
 
   List<HomeCard> cardList = [
-    const HomeCard(title: "Flashlight", color: Colors.redAccent, icon: Icons.flashlight_on),
-    const HomeCard(title: "Compass", color: Colors.blueGrey, icon: Icons.explore),
-    const HomeCard(title: "Weather", color: Colors.lightGreen, icon: Icons.wb_sunny),
-    const HomeCard( title: "MOD Calculator", color: Colors.deepOrangeAccent, icon: Icons.calculate),
-    const HomeCard( title: "YouTube Downloader", color: Colors.deepPurple, icon: Icons.download),
+    const HomeCard(
+        title: "Flashlight",
+        color: Colors.redAccent,
+        icon: Icons.flashlight_on),
+    const HomeCard(
+        title: "Compass", color: Colors.blueGrey, icon: Icons.explore),
+    const HomeCard(
+        title: "Weather", color: Colors.lightGreen, icon: Icons.wb_sunny),
+    const HomeCard(
+        title: "MOD Calculator",
+        color: Colors.deepOrangeAccent,
+        icon: Icons.calculate),
+    const HomeCard(
+        title: "YouTube Downloader",
+        color: Colors.deepPurple,
+        icon: Icons.download),
   ];
 }

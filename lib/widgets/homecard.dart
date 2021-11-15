@@ -51,7 +51,7 @@ class _HomeCardState extends State<HomeCard> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const CompassScreenAnimation()));
+                builder: (context) => const CompassScreen()));
         break;
       case "Weather":
         Navigator.push(context,
